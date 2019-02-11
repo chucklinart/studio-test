@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=false">
+    <meta name="description" content="Studio XKCD API Test App">
+    <meta name="author" content="Chuck Linart">
+
+    <title>Studio Test - Favorites</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Studio XKCD API Test App</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/favorites">My Favorites</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="card-body">
+            {% if faves %}
+            <h3>Your favorites</h3>
+              {% for fave in faves %}
+              <div class="single-in-list">
+                <h4>{{fave['title']}}</h4>
+                <img class="img-fluid" src="{{ fave['img']}}" alt="{{ fave['title']}}">
+                {% if fave['alt'] %}
+                <h5> {{ fave['alt']}} </h5>
+                {% else %}
+                  <p>No description found</p>
+                {% endif %}
+              </div>
+              {% endfor %}
+            {% else %}
+            <h2>You don't seem to have any favorites yet.</h2>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

@@ -1,0 +1,37 @@
+body {
+	padding-top: 54px;
+	}
+
+.single-in-list {
+	border-color: black green;
+        border-width: 3px 1px 1px 3px;
+        border-style: groove;
+        background: aliceblue;
+        padding-bottom: 45px; // make way for fave button
+}
+
+.card-body {
+	padding: 9px 9px 45px 9px;
+}
+
+.fas.fa-heart {
+	padding: 0 6px 0 0;
+}
+
+.fave .fas.fa-heart {
+	color: #d3d3d3;
+}
+
+.unfave .fas.fa-heart {
+	color: red;
+}
+
+.fave, .unfave {
+	float: right;
+        margin-bottom: 6px;
+}
+
+.unfave {
+	color: #32CD32;
+        font-weight: bold;
+}

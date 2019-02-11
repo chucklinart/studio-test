@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=false">
+    <meta name="description" content="Studio XKCD API Test App">
+    <meta name="author" content="Chuck Linart">
+
+    <title>Studio Test - XKCD List</title>
+
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/jquery/lazyload.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <!-- This could, of course, be done more cleanly in an inherited Flask template. Just horsin' around -->
+    <script>
+       $(function(){
+        $('input').click(function(){
+          var button = $(this).val();
+          $.ajax({
+            url: '/full-list',
+            method: 'get',
+            data: 'button=' + JSON.stringify($(this).val()),
+            dataType: 'text',
+            success: function(data){
+            data = JSON.parse(data);
+            str = "";
+            // numDisplayed = document.getElementsByClassName("single-in-list").length();
+            for (i in data){
+                    str =  str + '<div class="card-body comicnum'+data[i].num+'">' +
+                                   '<div class="single-in-list">' +
+                                   '<h4>' + data[i].title + '</h4>' + 
+                                   '<img class="img-fluid lazyload" src="' + data[i].img +'" data-original=' + data[i].img +'" alt="' + data[i].title + '">' + 
+                                   '<h5>' + data[i].alt + '</h5>' +
+                                   '<bu:tton type="button" class="btn btn-primary fave"><i class="fas fa-heart"></i>Favorite</button>' +
+                                   '</div>' +
+                                 '</div>';
+                };
+            $("#more-comics").html(str);
+            // lazyload images to take strain off xkcd server since we're hot-linking from there
+            $("img.lazyload").lazyload();
+            },
+            error: function(error){
+              console.log(error);
+            }
+            });
+            });
+          });
+    </script>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Studio XKCD API Test App</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/favorites">My Favorites</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+    <div class="container">
+      <div class="row jumbotron"> 
+        <div class="col-lg-12 text-center">
+          <div class="card-body comicnum{{latest['num']}}">
+            <h4>Latest comic from XKCD</h4>
+             {% if latest['imgRetina'] %} 
+             <img class="img-fluid" src="{{ latest['imgRetina'] }}" alt="{{ latest['safe_title']}}">
+             {% else %} 
+              <img class="img-fluid" src="{{ latest['img']}}" alt="{{ latest['safe_title']}}">
+             {% endif %}
+             {% if latest['alt'] %}
+             <h5> {{ latest['alt']}} </h5>
+             {% else %}
+             <p>No description found</p>
+             {% endif %}
+             <p>Comic Number: {{ latest['num'] }}</p>
+             <p>Year: {{ latest['year']}}</p>
+             <button type="button" class="btn btn-primary fave"><i class="fas fa-heart"></i>Favorite</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div id="more-comics">
+             
+          </div>
+        </div>
+      </div>
+    </div> <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="card-body">
+            <p class="card-text">Click on the button below to see more comics</p>
+            <input type="button" class="btn btn-primary btn-lg" value="Show More" id="showmore">
+          </div>
+
+        </div>
+      </div>
+    </div>
+<script src="/static/js/faves.js"></script>
+</body>
+</html>
