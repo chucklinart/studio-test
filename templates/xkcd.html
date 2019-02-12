@@ -74,9 +74,9 @@
     </div>
   </nav>
     <div class="container">
-      <div class="row jumbotron"> 
+      <div class="row"> 
         <div class="col-lg-12 text-center">
-          <div class="card-body comicnum{{latest['num']}}">
+          <div class="card-body comicnum{{latest['num']}} single-in-list">
             <h4>Latest comic from XKCD</h4>
              {% if latest['imgRetina'] %} 
              <img class="img-fluid" src="{{ latest['imgRetina'] }}" alt="{{ latest['safe_title']}}">

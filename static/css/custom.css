@@ -3,10 +3,11 @@ body {
 	}
 
 .single-in-list {
+        font-family: Monaco;
 	border-color: black green;
-        border-width: 3px 1px 1px 3px;
+        border-width: 3px 1px 6px 3px;
         border-style: groove;
-        background: aliceblue;
+        background: #96A8C8;
         padding-bottom: 45px; // make way for fave button
 }
 
