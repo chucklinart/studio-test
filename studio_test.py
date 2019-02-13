@@ -67,7 +67,10 @@ def single_pane(number):
 def list_favorites():
     # get favorites from cookie
     cookie = request.cookies.get('favecomics')
-    faves = json.loads(cookie)
+    if cookie:
+      faves = json.loads(cookie.content)
+    else: 
+      faves =[]
     return render_template('favorites.html', faves=faves)
 
 if __name__ == "__main__":
