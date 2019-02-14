@@ -2,3 +2,6 @@
 /__pycache__/*
 *.pyc
 *.conf.*
+cron.sh
+.rsync_excludes
+deploy.sh

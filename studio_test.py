@@ -68,9 +68,9 @@ def list_favorites():
     # get favorites from cookie
     cookie = request.cookies.get('favecomics')
     if cookie:
-      faves = json.loads(cookie.content)
+      faves = json.loads(cookie)
     else: 
-      faves =[]
+      faves = ''
     return render_template('favorites.html', faves=faves)
 
 if __name__ == "__main__":
